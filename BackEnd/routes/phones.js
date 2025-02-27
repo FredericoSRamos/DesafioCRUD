@@ -2,8 +2,21 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 const Phones = require('../models/phones');
+const { phoneSchema } = require('../phoneSchema');
 
 router.use(bodyParser.json());
+
+async function validatePhoneData(req, res, next) {
+  try {
+    await phoneSchema.validate(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Erro na validação dos dados do celular.',
+      errors: error.inner.map(e => e.message)
+    });
+  }
+}
 
 router.route('/')
   .get(async (req, res, next) => {
@@ -18,7 +31,7 @@ router.route('/')
       res.json({});
     }
   })
-  .post(async (req, res, next) => {
+  .post(validatePhoneData, async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     try {
       const phone = await Phones.create(req.body);
@@ -50,7 +63,7 @@ router.route('/:id')
       res.json({});
     }
   })
-  .put(async (req, res, next) => {
+  .put(validatePhoneData, async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     try {
       const phone = await Phones.findByIdAndUpdate(req.params.id, {

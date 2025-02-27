@@ -12,7 +12,7 @@ export default function MainPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (status === "not_loaded" || status === "saved" || status === "deleted") {
+        if (status === "not_loaded" || status === "added" || status === "deleted" || status === "updated") {
             dispatch(fetchPhones());
         } else if (status === "failed") {
             setTimeout(() => dispatch(fetchPhones()), 2000);

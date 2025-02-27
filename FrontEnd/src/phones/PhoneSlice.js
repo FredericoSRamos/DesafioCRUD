@@ -43,25 +43,25 @@ export const phoneSlice = createSlice({
             state.error = action.error.message;
         });
         builder.addCase(addPhoneServer.fulfilled, (state, action) => {
-            state.status = "saved";
+            state.status = "added";
             phonesAdapter.addOne(state, action.payload);
         });
-        builder.addCase(addPhoneServer.pending, (state) => {
-            state.status = "loading";
+        builder.addCase(addPhoneServer.rejected, (state) => {
+            state.status = "failed";
         });
         builder.addCase(updatePhoneServer.fulfilled, (state, action) => {
-            state.status = "saved";
+            state.status = "updated";
             phonesAdapter.upsertOne(state, action.payload);
         });
-        builder.addCase(updatePhoneServer.pending, (state) => {
-            state.status = "loading";
+        builder.addCase(updatePhoneServer.rejected, (state) => {
+            state.status = "failed";
         });
         builder.addCase(removePhoneServer.fulfilled, (state, action) => {
             state.status = "deleted";
             phonesAdapter.removeOne(state, action.payload);
         });
-        builder.addCase(removePhoneServer.pending, (state) => {
-            state.status = "loading";
+        builder.addCase(removePhoneServer.rejected, (state) => {
+            state.status = "failed";
         });
     }
 });

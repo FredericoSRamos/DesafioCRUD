@@ -63,7 +63,7 @@ export default function AddPhone() {
                         id="brand"
                         defaultValue={phoneOnLoad.brand}
                         { ...register("brand") }
-                        onChange={() => trigger('brand')}
+                        onBlur={() => trigger('brand')}
                         style={{ width: '90%', padding: '4px' }}
                     />
                     { errors.brand && <span style={{ color: 'red' }}>{errors.brand.message}</span> }
@@ -75,7 +75,7 @@ export default function AddPhone() {
                         id="model"
                         defaultValue={phoneOnLoad.model}
                         { ...register("model") }
-                        onChange={() => trigger('model')}
+                        onBlur={() => trigger('model')}
                         style={{ width: '90%', padding: '4px' }}
                     />
                     { errors.model && <span style={{ color: 'red' }}>{errors.model.message}</span> }
@@ -89,7 +89,7 @@ export default function AddPhone() {
                         step={0.1}
                         defaultValue={phoneOnLoad.memory}
                         { ...register("memory") }
-                        onChange={() => trigger('memory')}
+                        onBlur={() => trigger('memory')}
                         style={{ padding: '4px' }}
                     />
                     { errors.memory && <span style={{ color: 'red' }}>{errors.memory.message}</span> }
@@ -101,7 +101,7 @@ export default function AddPhone() {
                         id="date"
                         defaultValue={actionType === 'add' ? "" : new Date(phoneOnLoad.date).toISOString().substring(0, 10)}
                         { ...register("date") }
-                        onChange={() => trigger('date')}
+                        onBlur={() => trigger('date')}
                         style={{ padding: '4px' }}
                     />
                     { errors.date && <span style={{ color: 'red' }}>{errors.date.message}</span> }
